@@ -35,6 +35,7 @@ public class rest {
         
         return reporte.reporteUsuarios(iddep, marca, fecha, hora, tipo, fecha2, hora2, tipo2);
         
+        //http://localhost:8080/tesis3/rest/reporteUsuarios?iddep=2&marca=0&fecha=4/4/2018&hora=11:00:00&tipo=AM&fecha2=4/4/2018&hora2=12:00:00&tipo2=AM
         
     }
     
@@ -132,6 +133,14 @@ public class rest {
         return reporte.actualizarDepartamento(descripcion, supervisor, superemail);
     }
     
+    @GET
+    @Path("/buscarHora")
+    @Produces("application/json")
+    public   String buscarHor (@QueryParam("fecha") String fecha, @QueryParam("hora") String hora, @QueryParam("tipo") String tipo) throws ClassNotFoundException
+            
+    {
+        return reporte.buscarHora(fecha, hora, tipo);
+    }
     
   
 }

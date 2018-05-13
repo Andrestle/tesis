@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import utility.data;
 import utility.datos;
 import utility.datos2;
+import utility.datos3;
 import utility.reporte1;
 import utility.sql;
 
@@ -34,7 +35,7 @@ public class reportes {
     ArrayList<reporte1> a = new ArrayList<reporte1>();
     ArrayList<datos> c = new ArrayList<>();
     ArrayList<datos2> d = new ArrayList<>();
-    
+    ArrayList<datos3> e = new ArrayList<>();
     
     public String reporteUsuarios (int iddep, int marca, String fecha, String hora, String tipo,
                             String fecha2, String hora2, String tipo2) throws ClassNotFoundException
@@ -45,7 +46,7 @@ public class reportes {
             
             String query="SELECT * FROM Record, Department, User WHERE Department.IdDepartment = User.IdDepartment "
                    + "and IdDepartment = "+iddep+" and User.IdUser = Record.IdUser "
-                   + "and RecordType="+marca+" RecordTime > #"+fecha+" "+hora+" "+tipo+"# and RecordTime < #"+fecha2+" "+hora2+" "+tipo2+"";
+                   + "and RecordType = "+marca+" and RecordTime > #"+fecha+" "+hora+" "+tipo+"# and RecordTime < #"+fecha2+" "+hora2+" "+tipo2+"#";
             
             
             ResultSet da = sql.getValues(query);
@@ -211,8 +212,31 @@ public class reportes {
         }
         return null;
           
-          
+        
+        
+        }
       
+      
+       public String buscarHora (String fecha, String hora, String tipo) throws ClassNotFoundException{
+           
+           try{
+           String query="Select * FROM Record WHERE RecordTime > #"+fecha+" "+hora+" "+tipo+"#";
+           
+           ResultSet da = sql.getValues(query);
+           
+           while(da.next()){
+              
+             e.add(  new datos3 (da.getString("IdUser")));
+              
+          }
+          
+            return gson.toJson(e);
+          } catch (SQLException ex) {
+           
+        }
+        return null;
+           
+          
       
       }
    
