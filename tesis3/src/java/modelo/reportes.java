@@ -79,20 +79,24 @@ public class reportes {
         return "ok";
     }
          
-      public String insertarUsuario ( int cod , String cedula ,String nombre
+      public String insertarUsuario (int cod, String cedula ,String nombre
             , int sexo, String titulo, String fecha, String hora, String tipo ,  String telefono
             , String celular, String direc , int dept
             ,  String puesto,  String email)
     {
      
-            String query="insert into User (IdUser , IdentificationNumber, Name, Gender, Title, Birthday, PhoneNumber ,"
-                    + "MobileNumber, Address, IdDepartment, Position, Email ) values ("+cod+", '"+cedula+"','"+nombre+"',"+sexo+",'"+titulo+"',#"+fecha+" "+hora+" "+tipo+"#, '"+telefono+"',"
-                    + "'"+celular+"','"+direc+"',"+dept+",'"+puesto+"','"+email+"')";
+        
+            
+            String query="insert into User (IdUser, IdentificationNumber, Name, Gender, Title, Birthday, PhoneNumber,"
+                    + "MobileNumber, Address, IdDepartment, Position, Email, Active, Privilege, HourSalary, CreatedBy, CreatedDateTime, ModifiedBy, ModifiedDateTime) "
+                    + "values ("+cod+", '"+cedula+"', '"+nombre+"', "+sexo+", '"+titulo+"', #"+fecha+" "+hora+" "+tipo+"#, '"+telefono+"',"
+                    + "'"+celular+"','"+direc+"',"+dept+",'"+puesto+"','"+email+"', 1, 0, 100, 0, #4/4/2018 11:00:00 AM#, 0, #4/26/2018 11:00:00 AM#)";
             
             
             String da = sql.setValues(query);
             
-            //?cod=4&cedula=22916315&nombre=Luisana Delgado&sexo=1&titulo=Lcda.&fecha=27/7/2018&hora=11:00:00&tipo=AM&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=caracas
+            
+            //?cod=4&cedula=22916315&nombre=Luisana Delgado&sexo=1&titulo=Lcda.&fecha=27/7/2018&hora=11:00:00&tipo=AM&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=Caracas
             
        
         return "ok";
@@ -129,9 +133,11 @@ public class reportes {
       
       }
       
-      public String actualizarUsuario (String celular, String telefono, String direc, int iddep, String puesto){
+      public String actualizarUsuario (String cedula, String celular, String telefono, String direc, int iddep, String puesto){
         
-          String query="update User SET MobileNumber='"+celular+"', SET PhoneNumber='"+telefono+"', SET Address='"+direc+"', SET IdDepartment='"+iddep+"', SET Position='"+puesto+"' ";
+          String query="update User "
+                  + "SET MobileNumber='"+celular+"' ,PhoneNumber='"+telefono+"' ,Address='"+direc+"', IdDepartment='"+iddep+"', Position='"+puesto+"' "
+                  + "WHERE IdentificationNumber = '"+cedula+"' ";
           
           String da = sql.setValues(query);
           
@@ -160,9 +166,11 @@ public class reportes {
       
       }
       
-      public String actualizarDepartamento (String description, String supervisor, String superemail){
+      public String actualizarDepartamento (String description, String supervisor, String superemail, int iddep){
         
-          String query="update Department SET Description='"+description+"', SET SupervisorName='"+supervisor+"', SET SupervisorEmail='"+superemail+"' ";
+          String query="update Department "
+                  + "SET Description='"+description+"', SupervisorName='"+supervisor+"', SupervisorEmail='"+superemail+"' "
+                  + "WHERE IdDepartment="+iddep+"";
           
           String da = sql.setValues(query);
           

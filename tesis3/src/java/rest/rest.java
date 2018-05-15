@@ -62,9 +62,10 @@ public class rest {
             , @QueryParam("dept") int dept, @QueryParam("direc") String direc, @QueryParam("hora") String hora, @QueryParam("tipo") String tipo) throws ClassNotFoundException
             
     {   
+        
         return reporte.insertarUsuario(cod,cedula,nombre,sexo,titulo,fecha,hora,tipo,telefono,celular,direc,dept,puesto,email); 
         
-   // ?cod=4&cedula=22916315&nombre=Luisana Delgado&sexo=1&titulo=Lcda.&fecha=27/07/2018&hora=11:00:00&tipo=AM&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=caracas    
+               // http://localhost:8080/tesis3/rest/insertarUsuario?cod=4&cedula=22916315&nombre=Luisana Delgado&sexo=1&titulo=Lcda.&fecha=27/07/2018&hora=11:00:00&tipo=AM&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=caracas    
     }
     
     @GET
@@ -75,6 +76,8 @@ public class rest {
             
     {
         return reporte.insertarDepartamento(idparent, description, supervisor, superemail); 
+        
+        //http://localhost:8080/tesis3/rest/insertarDepartamento?idparent=1&description=Administracion&supervisor=Jose&superemail=jose@gmail.com
     }
     
     @GET
@@ -84,6 +87,8 @@ public class rest {
             
     {
         return reporte.borrarUsuario(iduser);
+        
+        //http://localhost:8080/tesis3/rest/borrarUsuario?iduser=6
     }
     
     @GET
@@ -93,6 +98,8 @@ public class rest {
             
     {
         return reporte.borrarDepartamento(description);
+        
+        //http://localhost:8080/tesis3/rest/borrarDepartamento?description=Administracion
     }
     
     @GET
@@ -102,17 +109,21 @@ public class rest {
             
     {   
         return reporte.buscarUsuario(cedula); 
+        
+        //NO ES NECESARIA LA FUNCION DE ACTUALIZAR EL USUARIO YA TIENE COMO CONDICION BUSCAR POR CEDULA
           
     }
     
     @GET
     @Path("/actualizarUsuario")
     @Produces("application/json")
-    public   String actualizarUsu (@QueryParam("celular")String celular, @QueryParam("telefono") String telefono, @QueryParam("direc") String direc, 
+    public   String actualizarUsu (@QueryParam("cedula") String cedula,@QueryParam("celular")String celular, @QueryParam("telefono") String telefono, @QueryParam("direc") String direc, 
              @QueryParam("iddep") int iddep, @QueryParam("puesto") String puesto)
             
     {
-        return reporte.actualizarUsuario(celular, telefono, direc, iddep, puesto);
+        return reporte.actualizarUsuario(cedula, celular, telefono, direc, iddep, puesto);
+        
+        //http://localhost:8080/tesis3/rest/actualizarUsuario?cedula=23693417&celular=04122563328&telefono=02125569987&direc=La Guaira&iddep=2&puesto=Jefe Supremo
     }
     
     @GET
@@ -122,15 +133,19 @@ public class rest {
             
     {
         return reporte.buscarDepartamento(description);
+        
+        //NO ES NECESARIA LA FUNCION DE ACTUALIZAR EL DEPARTAMENTO YA TIENE COMO CONDICION BUSCAR POR IDDEPARTMENT
     }
     
     @GET
     @Path("/actualizarDepartamento")
     @Produces("application/json")
-    public   String actualizarDep (@QueryParam("description")String description, @QueryParam("supervisor") String supervisor, @QueryParam("superemail") String superemail)
+    public   String actualizarDep (@QueryParam("description")String description, @QueryParam("supervisor") String supervisor, @QueryParam("superemail") String superemail, @QueryParam("iddep") int iddep)
             
     {
-        return reporte.actualizarDepartamento(description, supervisor, superemail);
+        return reporte.actualizarDepartamento(description, supervisor, superemail, iddep);
+        
+         //http://localhost:8080/tesis3/rest/actualizarDepartamento?iddep=2&description=TECNOLOGIA&supervisor=Juan&superemail=juan@gmail.com
     }
     
     @GET
@@ -140,6 +155,8 @@ public class rest {
             
     {
         return reporte.buscarHora(fecha, hora, tipo);
+        
+        //POR SIA 
     }
     
   
