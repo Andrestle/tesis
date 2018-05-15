@@ -57,14 +57,14 @@ public class rest {
     @Path("/insertarUsuario")
     @Produces("application/json")
     public   String insertarUsu (@QueryParam("cod") int cod , @QueryParam("nombre") String nombre, @QueryParam("cedula") String cedula, @QueryParam("titulo") String titulo 
-            , @QueryParam("sexo") int sexo,@QueryParam("fecha") String fecha , @QueryParam("celular") String celular
+            , @QueryParam("sexo") int sexo, @QueryParam("fecha") String fecha , @QueryParam("celular") String celular
             , @QueryParam("telefono") String telefono,@QueryParam("email") String email , @QueryParam("puesto") String puesto
-            , @QueryParam("departamento") int dept, @QueryParam("direc") String direc) throws ClassNotFoundException
+            , @QueryParam("dept") int dept, @QueryParam("direc") String direc, @QueryParam("hora") String hora, @QueryParam("tipo") String tipo) throws ClassNotFoundException
             
     {   
-        return reporte.insertarUsuario(cod,cedula,nombre,sexo,titulo,fecha,celular,telefono,email,puesto,dept,direc); 
+        return reporte.insertarUsuario(cod,cedula,nombre,sexo,titulo,fecha,hora,tipo,telefono,celular,direc,dept,puesto,email); 
         
-        
+   // ?cod=4&cedula=22916315&nombre=Luisana Delgado&sexo=1&titulo=Lcda.&fecha=27/07/2018&hora=11:00:00&tipo=AM&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=caracas    
     }
     
     @GET
@@ -80,19 +80,19 @@ public class rest {
     @GET
     @Path("/borrarUsuario")
     @Produces("application/json")
-    public   String borrarUsu (@QueryParam("cedula")String cedula)
+    public   String borrarUsu (@QueryParam("iduser")int iduser)
             
     {
-        return reporte.borrarUsuario(cedula);
+        return reporte.borrarUsuario(iduser);
     }
     
     @GET
     @Path("/borrarDepartamento")
     @Produces("application/json")
-    public   String borrarDep (@QueryParam("descripcion")String descripcion)
+    public   String borrarDep (@QueryParam("description")String description)
             
     {
-        return reporte.borrarDepartamento(descripcion);
+        return reporte.borrarDepartamento(description);
     }
     
     @GET
@@ -118,19 +118,19 @@ public class rest {
     @GET
     @Path("/buscarDepartamento")
     @Produces("application/json")
-    public   String buscarDep (@QueryParam("descripcion") String descripcion) throws ClassNotFoundException, SQLException
+    public   String buscarDep (@QueryParam("description") String description) throws ClassNotFoundException, SQLException
             
     {
-        return reporte.buscarDepartamento(descripcion);
+        return reporte.buscarDepartamento(description);
     }
     
     @GET
     @Path("/actualizarDepartamento")
     @Produces("application/json")
-    public   String actualizarDep (@QueryParam("descripcion")String descripcion, @QueryParam("supervisor") String supervisor, @QueryParam("superemail") String superemail)
+    public   String actualizarDep (@QueryParam("description")String description, @QueryParam("supervisor") String supervisor, @QueryParam("superemail") String superemail)
             
     {
-        return reporte.actualizarDepartamento(descripcion, supervisor, superemail);
+        return reporte.actualizarDepartamento(description, supervisor, superemail);
     }
     
     @GET

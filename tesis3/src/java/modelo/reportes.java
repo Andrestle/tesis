@@ -80,17 +80,19 @@ public class reportes {
     }
          
       public String insertarUsuario ( int cod , String cedula ,String nombre
-            , int sexo, String titulo, String fecha ,  String celular
-            , String telefono, String email , String puesto
-            ,  int dept,  String direc)
+            , int sexo, String titulo, String fecha, String hora, String tipo ,  String telefono
+            , String celular, String direc , int dept
+            ,  String puesto,  String email)
     {
      
-            String query="insert into User (IdUser , IdentificationNumber, Name, Gender, Title, Birthday, PhoneNumber,"
-                    + "MobileNumber, Address, IdDepartment, Position, Email) values ("+cod+", '"+cedula+"','"+nombre+"',"+sexo+", '"+titulo+"','"+fecha+"','"+celular+"',"
-                    + "'"+telefono+"','"+email+"','"+puesto+"',"+dept+",'"+direc+"') ;";
+            String query="insert into User (IdUser , IdentificationNumber, Name, Gender, Title, Birthday, PhoneNumber ,"
+                    + "MobileNumber, Address, IdDepartment, Position, Email ) values ("+cod+", '"+cedula+"','"+nombre+"',"+sexo+",'"+titulo+"',#"+fecha+" "+hora+" "+tipo+"#, '"+telefono+"',"
+                    + "'"+celular+"','"+direc+"',"+dept+",'"+puesto+"','"+email+"')";
             
             
             String da = sql.setValues(query);
+            
+            //?cod=4&cedula=22916315&nombre=Luisana Delgado&sexo=1&titulo=Lcda.&fecha=27/7/2018&hora=11:00:00&tipo=AM&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=caracas
             
        
         return "ok";
@@ -137,10 +139,10 @@ public class reportes {
       
       }
     
-      public String buscarDepartamento (String descripcion) throws ClassNotFoundException, SQLException{
+      public String buscarDepartamento (String description) throws ClassNotFoundException, SQLException{
         
         try {
-          String query="Select * FROM Department WHERE Description='"+descripcion+"';";
+          String query="Select * FROM Department WHERE Description='"+description+"';";
         
           ResultSet da = sql.getValues(query);
           
@@ -158,9 +160,9 @@ public class reportes {
       
       }
       
-      public String actualizarDepartamento (String descripcion, String supervisor, String superemail){
+      public String actualizarDepartamento (String description, String supervisor, String superemail){
         
-          String query="update Department SET Description='"+descripcion+"', SET SupervisorName='"+supervisor+"', SET SupervisorEmail='"+superemail+"' ";
+          String query="update Department SET Description='"+description+"', SET SupervisorName='"+supervisor+"', SET SupervisorEmail='"+superemail+"' ";
           
           String da = sql.setValues(query);
           
@@ -168,20 +170,25 @@ public class reportes {
       
       }
       
-      public String borrarUsuario (String cedula){
+      public String borrarUsuario (int iduser){
           
-          String query="delete * from User WHERE IdentificationNumber='"+cedula+"'";
+          String query1="delete * FROM Record WHERE IdUser="+iduser+"";
+          String query2="delete * FROM UserFingerprint WHERE IdUser="+iduser+"";
+          String query3="delete * FROM User WHERE IdUser="+iduser+"";
         
-          String da = sql.setValues(query);
+          
+          String da = sql.setValues(query1);
+          String db = sql.setValues(query2);
+          String dc = sql.setValues(query3);
           
           return "ok";
       
       
       }
       
-      public String borrarDepartamento (String descripcion){
+      public String borrarDepartamento (String description){
           
-          String query="delete * from Department WHERE Description='"+descripcion+"'";
+          String query="delete * from Department WHERE Description='"+description+"'";
         
           String da = sql.setValues(query);
           
@@ -235,10 +242,11 @@ public class reportes {
            
         }
         return null;
-           
-          
+        
+       }
+       
+ 
       
-      }
    
 }
 
