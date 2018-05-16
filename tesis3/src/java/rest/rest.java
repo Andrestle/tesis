@@ -33,10 +33,47 @@ public class rest {
             
     {   
         
-        return reporte.reporteUsuarios(iddep, marca, fecha, hora, tipo, fecha2, hora2, tipo2);
+        if(iddep==0){
+            
+            if(marca==2){
+                
+                return reporte.reporteUsuarios2(fecha, hora, tipo, fecha2, hora2, tipo2);
+                
+                //Busca reportes de todos los departamentos sin importar el tipo de marca
+            
+            }
+            
+            else{
+            
+            return reporte.reporteUsuarios1(marca, fecha, hora, tipo, fecha2, hora2, tipo2);
+            
+            // Busca reportes de todos los departamentos todmando en cuenta la marca
+            }
+        }
+        
+        else{
+            
+            if(marca==2){
+                
+                return reporte.reporteUsuarios3(iddep, fecha, hora, tipo, fecha2, hora2, tipo2);
+                
+                // Busca reportes de un departamento sin importar el tipo de marca
+            
+            }
+            
+            else{
+            
+            return reporte.reporteUsuarios(iddep, marca, fecha, hora, tipo, fecha2, hora2, tipo2);
+            
+            // Busca reportes de un departamento tomando en cuenta la marca
+            }
+            
+        
         
         //http://localhost:8080/tesis3/rest/reporteUsuarios?iddep=2&marca=0&fecha=4/4/2018&hora=11:00:00&tipo=AM&fecha2=4/4/2018&hora2=12:00:00&tipo2=AM
         
+    }
+      
     }
     
       
@@ -49,6 +86,8 @@ public class rest {
         
         return reporte.reporteZona(zona);
         
+        
+       // http://localhost:8080/tesis3/rest/reporteZonas?zona=2
         
     }
     

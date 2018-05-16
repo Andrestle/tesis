@@ -64,19 +64,82 @@ public class reportes {
         return null;
     }
     
-         public String insertReporte (String a)
+        public String reporteUsuarios1 (int marca, String fecha, String hora, String tipo,
+                            String fecha2, String hora2, String tipo2) throws ClassNotFoundException
     {
      
          
+        try {
+            
+            String query="SELECT * FROM Record, User, Department WHERE User.IdUser = Record.IdUser and Department.IdDepartment = User.IdDepartment "
+                   + "and RecordType = "+marca+" and RecordTime > #"+fecha+" "+hora+" "+tipo+"# and RecordTime < #"+fecha2+" "+hora2+" "+tipo2+"#";
+            
+            
+            ResultSet da = sql.getValues(query);
+            
+            while (da.next()) {
+                
+                a.add(  new reporte1 (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+                
+            }
+              
+           return gson.toJson(a);
+        } catch (SQLException ex) {           
+           
+        }
+        return null;
+    }
         
-        String query = "update  Department SET Description='togni es pargo' where IdDepartment = 11";
+        public String reporteUsuarios2 (String fecha, String hora, String tipo,
+                            String fecha2, String hora2, String tipo2) throws ClassNotFoundException
+    {
+     
+         
+        try {
+            
+            String query="SELECT * FROM Record, User, Department WHERE User.IdUser = Record.IdUser and Department.IdDepartment = User.IdDepartment "
+                   + "and RecordTime > #"+fecha+" "+hora+" "+tipo+"# and RecordTime < #"+fecha2+" "+hora2+" "+tipo2+"#";
+            
+            
+            ResultSet da = sql.getValues(query);
+            
+            while (da.next()) {
+                
+                a.add(  new reporte1 (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+                
+            }
+              
+           return gson.toJson(a);
+        } catch (SQLException ex) {           
+           
+        }
+        return null;
+    }
         
+         public String reporteUsuarios3(int iddep, String fecha, String hora, String tipo,
+                            String fecha2, String hora2, String tipo2) throws ClassNotFoundException
+    {
+     
+         
+        try {
+            
+            String query="SELECT * FROM Record, User, Department WHERE User.IdUser = Record.IdUser and Department.IdDepartment = User.IdDepartment and IdDepartment = "+iddep+" "
+                   + "and RecordTime > #"+fecha+" "+hora+" "+tipo+"# and RecordTime < #"+fecha2+" "+hora2+" "+tipo2+"#";
             
             
-            String da = sql.setValues(query);
+            ResultSet da = sql.getValues(query);
             
-       
-        return "ok";
+            while (da.next()) {
+                
+                a.add(  new reporte1 (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+                
+            }
+              
+           return gson.toJson(a);
+        } catch (SQLException ex) {           
+           
+        }
+        return null;
     }
          
       public String insertarUsuario (int cod, String cedula ,String nombre
