@@ -208,16 +208,16 @@ public class reportes {
       
       }
     
-      public String buscarDepartamento (String description) throws ClassNotFoundException, SQLException{
+      public String buscarDepartamento () throws ClassNotFoundException, SQLException{
         
         try {
-          String query="Select * FROM Department WHERE Description='"+description+"';";
+          String query="Select * FROM Department ;";
         
           ResultSet da = sql.getValues(query);
           
           while(da.next()){
               
-             d.add(  new datos2 (da.getString("IdDepartment"),da.getString("IdParent"), da.getString("Description"), da.getString("SupervisorName"), da.getString("SupervisorEmail")));  
+             d.add(  new datos2 (da.getString("IdDepartment"), da.getString("Description")));  
               
           }
           

@@ -12,19 +12,12 @@ package utility;
 public class datos2 {
     
     String Id;
-    String Padre;
     String Descripcion;
-    String Supervisor;
-    String Email;
     
-    public datos2(String a , String b, String c, String d, String e){
+    public datos2(String a , String b){
         
         Id=a;
-        Padre=b;
-        Descripcion=c;
-        Supervisor=d;
-        Email=e;
-       
+        Descripcion=b;
     }
     
     

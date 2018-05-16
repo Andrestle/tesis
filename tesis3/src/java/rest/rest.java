@@ -168,10 +168,10 @@ public class rest {
     @GET
     @Path("/buscarDepartamento")
     @Produces("application/json")
-    public   String buscarDep (@QueryParam("description") String description) throws ClassNotFoundException, SQLException
+    public   String buscarDep () throws ClassNotFoundException, SQLException
             
     {
-        return reporte.buscarDepartamento(description);
+        return reporte.buscarDepartamento();
         
         //NO ES NECESARIA LA FUNCION DE ACTUALIZAR EL DEPARTAMENTO YA TIENE COMO CONDICION BUSCAR POR IDDEPARTMENT
     }
