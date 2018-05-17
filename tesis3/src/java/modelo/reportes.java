@@ -11,6 +11,8 @@ import utility.data;
 import utility.datos;
 import utility.datos2;
 import utility.datos3;
+import utility.datos4;
+import utility.datos5;
 import utility.reporte1;
 import utility.sql;
 
@@ -36,6 +38,8 @@ public class reportes {
     ArrayList<datos> c = new ArrayList<>();
     ArrayList<datos2> d = new ArrayList<>();
     ArrayList<datos3> e = new ArrayList<>();
+    ArrayList<datos4> f = new ArrayList<>();
+    ArrayList<datos5> g = new ArrayList<>();
     
     public String reporteUsuarios (int iddep, int marca, String fecha, String hora, String tipo,
                             String fecha2, String hora2, String tipo2) throws ClassNotFoundException
@@ -53,7 +57,7 @@ public class reportes {
             
             while (da.next()) {
                 
-                a.add(  new reporte1 (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+                a.add(  new reporte1 (da.getString("IdUser"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
                 
             }
               
@@ -79,7 +83,7 @@ public class reportes {
             
             while (da.next()) {
                 
-                a.add(  new reporte1 (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+                a.add(  new reporte1 (da.getString("IdUser"),da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
                 
             }
               
@@ -105,7 +109,7 @@ public class reportes {
             
             while (da.next()) {
                 
-                a.add(  new reporte1 (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+                a.add(  new reporte1 (da.getString("IdUser"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
                 
             }
               
@@ -131,7 +135,7 @@ public class reportes {
             
             while (da.next()) {
                 
-                a.add(  new reporte1 (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+                a.add(  new reporte1 (da.getString("IdUser"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
                 
             }
               
@@ -143,16 +147,16 @@ public class reportes {
     }
          
       public String insertarUsuario (int cod, String cedula ,String nombre
-            , int sexo, String titulo, String fecha, String hora, String tipo ,  String telefono
+            , int sexo, String fecha,  String telefono
             , String celular, String direc , int dept
             ,  String puesto,  String email)
     {
      
         
             
-            String query="insert into User (IdUser, IdentificationNumber, Name, Gender, Title, Birthday, PhoneNumber,"
+            String query="insert into User (IdUser, IdentificationNumber, Name, Gender, Birthday, PhoneNumber,"
                     + "MobileNumber, Address, IdDepartment, Position, Email, Active, Privilege, HourSalary, CreatedBy, CreatedDateTime, ModifiedBy, ModifiedDateTime) "
-                    + "values ("+cod+", '"+cedula+"', '"+nombre+"', "+sexo+", '"+titulo+"', #"+fecha+" "+hora+" "+tipo+"#, '"+telefono+"',"
+                    + "values ("+cod+", '"+cedula+"', '"+nombre+"', "+sexo+", #"+fecha+" 12:00:00 AM#, '"+telefono+"',"
                     + "'"+celular+"','"+direc+"',"+dept+",'"+puesto+"','"+email+"', 1, 0, 100, 0, #4/4/2018 11:00:00 AM#, 0, #4/26/2018 11:00:00 AM#)";
             
             
@@ -165,9 +169,9 @@ public class reportes {
         return "ok";
     }
       
-      public String insertarDepartamento (int idparent ,String description, String supervisor, String superemail){
+      public String insertarDepartamento (String description, String supervisor, String superemail){
           
-          String query="insert into Department (IdParent, Description, SupervisorName, SupervisorEmail) values("+idparent+" ,'"+description+"', '"+supervisor+"', '"+superemail+"')";
+          String query="insert into Department (IdParent, Description, SupervisorName, SupervisorEmail) values(1 ,'"+description+"', '"+supervisor+"', '"+superemail+"')";
           
           String da = sql.setValues(query);
           
@@ -175,16 +179,17 @@ public class reportes {
       
       }
       
-      public String buscarUsuario (String cedula) throws ClassNotFoundException, SQLException{
+      public String buscarUsuario (int cod) throws ClassNotFoundException, SQLException{
         
         try {
-          String query="Select * FROM User WHERE IdentificationNumber='"+cedula+"';";
+          String query="Select * FROM User, Department WHERE Department.IdDepartment = User.IdDepartment and IdUser="+cod+";";
         
           ResultSet da = sql.getValues(query);
           
           while(da.next()){
               
-             c.add(  new datos (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Position")));  
+             c.add(  new datos (da.getString("IdUser"), da.getString ("Name"), da.getString("IdentificationNumber"), da.getString("Gender"), 
+                     da.getString("PhoneNumber"), da.getString("MobileNumber"), da.getString("Email"), da.getString("Description"), da.getString("Address"), da.getString("Position")));  
               
           }
           
@@ -243,6 +248,7 @@ public class reportes {
       
       public String borrarUsuario (int iduser){
           
+          
           String query1="delete * FROM Record WHERE IdUser="+iduser+"";
           String query2="delete * FROM UserFingerprint WHERE IdUser="+iduser+"";
           String query3="delete * FROM User WHERE IdUser="+iduser+"";
@@ -260,6 +266,8 @@ public class reportes {
       public String borrarDepartamento (String description){
           
           String query="delete * from Department WHERE Description='"+description+"'";
+          //String query="delete * from User, Department, Record WHERE Department.IdDepartment=User.IdDepartment and Record.IdUser = User.IdUser and Description='"+description+"'";
+          //String query3="delete * from Record WHERE ";
         
           String da = sql.setValues(query);
           
@@ -280,7 +288,7 @@ public class reportes {
           
           while(da.next()){
               
-             a.add(  new reporte1 (da.getString("IdUser"),da.getString("Title"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+             a.add(  new reporte1 (da.getString("IdUser"),da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
               
           }
           
@@ -314,6 +322,68 @@ public class reportes {
         }
         return null;
         
+       }
+       
+       public String listadoEmpleados() throws ClassNotFoundException, SQLException{
+           
+           
+           try{
+           String query="SELECT * FROM User, Department WHERE Department.IdDepartment=User.IdDepartment ;";
+           ResultSet da = sql.getValues(query);
+            
+            while (da.next()) {
+                
+                f.add(  new datos4 (da.getString("IdUser"), da.getString("IdentificationNumber"),da.getString("Name"), da.getString("Position"), da.getString("Description")));
+                
+            }
+              
+           return gson.toJson(f);
+        }catch (SQLException ex) {
+           
+        }
+        return null;
+       
+       
+       }
+       
+       public String buscarDispositivos() throws ClassNotFoundException, SQLException {
+        try{
+           String query="SELECT * FROM Device;";
+           ResultSet da = sql.getValues(query);
+            
+            while (da.next()) {
+                
+                g.add(  new datos5 (da.getString("IdDevice"), da.getString("Description")));
+                
+            }
+              
+           return gson.toJson(g);
+        }catch (SQLException ex) {
+           
+        }
+        return null;
+       }
+       
+       public String ultimosCinco() throws ClassNotFoundException, SQLException{
+       
+        try{
+           String query="SELECT TOP 5 * FROM Record, Department, User WHERE Department.IdDepartment = User.IdDepartment "
+                   + "and User.IdUser = Record.IdUser "
+                   + "ORDER BY Record.RecordTime DESC";
+           ResultSet da = sql.getValues(query);
+            
+            while (da.next()) {
+                
+                a.add(  new reporte1 (da.getString("IdUser"), da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+                
+            }
+              
+           return gson.toJson(a);
+        }catch (SQLException ex) {
+           
+        }
+        return null;   
+           
        }
        
  

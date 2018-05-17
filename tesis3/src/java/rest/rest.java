@@ -95,14 +95,14 @@ public class rest {
     @GET
     @Path("/insertarUsuario")
     @Produces("application/json")
-    public   String insertarUsu (@QueryParam("cod") int cod , @QueryParam("nombre") String nombre, @QueryParam("cedula") String cedula, @QueryParam("titulo") String titulo 
+    public   String insertarUsu (@QueryParam("cod") int cod , @QueryParam("nombre") String nombre, @QueryParam("cedula") String cedula 
             , @QueryParam("sexo") int sexo, @QueryParam("fecha") String fecha , @QueryParam("celular") String celular
             , @QueryParam("telefono") String telefono,@QueryParam("email") String email , @QueryParam("puesto") String puesto
-            , @QueryParam("dept") int dept, @QueryParam("direc") String direc, @QueryParam("hora") String hora, @QueryParam("tipo") String tipo) throws ClassNotFoundException
+            , @QueryParam("dept") int dept, @QueryParam("direc") String direc) throws ClassNotFoundException
             
     {   
         
-        return reporte.insertarUsuario(cod,cedula,nombre,sexo,titulo,fecha,hora,tipo,telefono,celular,direc,dept,puesto,email); 
+        return reporte.insertarUsuario(cod,cedula,nombre,sexo,fecha,telefono,celular,direc,dept,puesto,email); 
         
                // http://localhost:8080/tesis3/rest/insertarUsuario?cod=4&cedula=22916315&nombre=Luisana Delgado&sexo=1&titulo=Lcda.&fecha=27/07/2018&hora=11:00:00&tipo=AM&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=caracas    
     }
@@ -110,11 +110,11 @@ public class rest {
     @GET
     @Path("/insertarDepartamento")
     @Produces("application/json")
-    public   String insertarDep (@QueryParam("idparent") int idparent, @QueryParam("description") String description,
+    public   String insertarDep (@QueryParam("description") String description,
             @QueryParam("supervisor") String supervisor, @QueryParam("superemail") String superemail) throws ClassNotFoundException
             
     {
-        return reporte.insertarDepartamento(idparent, description, supervisor, superemail); 
+        return reporte.insertarDepartamento(description, supervisor, superemail); 
         
         //http://localhost:8080/tesis3/rest/insertarDepartamento?idparent=1&description=Administracion&supervisor=Jose&superemail=jose@gmail.com
     }
@@ -144,12 +144,12 @@ public class rest {
     @GET
     @Path("/buscarUsuario")
     @Produces("application/json")
-    public   String buscarUsu (@QueryParam("cedula") String cedula) throws ClassNotFoundException, SQLException
+    public   String buscarUsu (@QueryParam("cod") int cod) throws ClassNotFoundException, SQLException
             
     {   
-        return reporte.buscarUsuario(cedula); 
+        return reporte.buscarUsuario(cod); 
         
-        //NO ES NECESARIA LA FUNCION DE ACTUALIZAR EL USUARIO YA TIENE COMO CONDICION BUSCAR POR CEDULA
+        //http://localhost:8080/tesis3/rest/buscarUsuario
           
     }
     
@@ -173,7 +173,7 @@ public class rest {
     {
         return reporte.buscarDepartamento();
         
-        //NO ES NECESARIA LA FUNCION DE ACTUALIZAR EL DEPARTAMENTO YA TIENE COMO CONDICION BUSCAR POR IDDEPARTMENT
+        //http://localhost:8080/tesis3/rest/buscarDepartamento
     }
     
     @GET
@@ -195,8 +195,39 @@ public class rest {
     {
         return reporte.buscarHora(fecha, hora, tipo);
         
-        //POR SIA 
+        //http://localhost:8080/tesis3/rest/buscarHora?fecha=5/13/2018&hora=11:00:00&tipo=AM
     }
     
+    @GET
+    @Path("/listadoT")
+    @Produces("application/json")
+    public String listadoEmp () throws ClassNotFoundException, SQLException{
+        
+        return reporte.listadoEmpleados();
+        //http://localhost:8080/tesis3/rest/listadoT
+    
+    }
+    
+    @GET
+    @Path("/buscarDispositivo")
+    @Produces("application/json")
+    public String buscarDis () throws ClassNotFoundException, SQLException{
+    
+        return reporte.buscarDispositivos();
+        
+        //http://localhost:8080/tesis3/rest/buscarDispositivos
+    
+    }
+    
+    @GET
+    @Path("/ultimosCinco")
+    @Produces("application/json")
+    public String ultimosCin () throws ClassNotFoundException, SQLException{
+    
+        return reporte.ultimosCinco();
+        
+        //http://localhost:8080/tesis3/rest/ultimosCinco
+    
+    }
   
 }

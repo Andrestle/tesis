@@ -12,17 +12,15 @@ package utility;
 public class reporte1 {
     
     String Id;
-    String Titulo;
     String Name;
     String Departamento;
     String Cargo;
     String Marca;
     String Hora;
     
-    public reporte1(String a , String b, String c, String d, String e, String f, String g){
+    public reporte1(String a , String c, String d, String e, String f, String g){
         
         Id=a;
-        Titulo=b;
         Name=c;
         Departamento=d;
         Cargo=e;

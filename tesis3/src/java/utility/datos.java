@@ -12,17 +12,29 @@ package utility;
 public class datos {
     
     String Id;
-    String Titulo;
     String Name;
+    String Cedula;
+    String Sexo;
+    String telefono;
+    String celular;
+    String email;
+    String departamento;
+    String direccion;
     String Cargo;
   
     
-    public datos(String a , String b, String c, String d){
+    public datos(String a , String b, String c, String d, String e, String f, String g, String h, String i, String j){
         
         Id=a;
-        Titulo=b;
-        Name=c;
-        Cargo=d;
+        Name=b;
+        Cedula=c;
+        Sexo=d;
+        telefono=e;
+        celular=f;
+        email=g;
+        departamento=h;
+        direccion=i;
+        Cargo=j;
        
     }
     
