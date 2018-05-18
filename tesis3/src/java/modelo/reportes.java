@@ -346,6 +346,27 @@ public class reportes {
        
        }
        
+       public String listadoEmpleados1() throws ClassNotFoundException{
+       
+            try{
+           String query="SELECT * FROM User, Department WHERE Department.IdDepartment=User.IdDepartment;";
+           ResultSet da = sql.getValues(query);
+            
+            while (da.next()) {
+                
+                f.add(  new datos4 (da.getString("IdUser"), da.getString("IdentificationNumber"),da.getString("Name"), da.getString("Position"), da.getString("Description")));
+                
+            }
+              
+           return gson.toJson(f);
+        }catch (SQLException ex) {
+           
+        }
+        return null;
+       
+       
+       }
+       
        public String buscarDispositivos() throws ClassNotFoundException, SQLException {
         try{
            String query="SELECT * FROM Device;";

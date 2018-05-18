@@ -203,9 +203,21 @@ public class rest {
     @Produces("application/json")
     public String listadoEmp (@QueryParam("iddep") int iddep) throws ClassNotFoundException, SQLException{
         
+        if(iddep==0){
+        
+            return reporte.listadoEmpleados1();
+            
+        }
+        
+        else{
+        
         return reporte.listadoEmpleados(iddep);
         //http://localhost:8080/tesis3/rest/listadoT?iddep=2
-    
+        
+        }
+       
+   
+        
     }
     
     @GET
