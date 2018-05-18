@@ -104,8 +104,8 @@ public class rest {
         
         return reporte.insertarUsuario(cod,cedula,nombre,sexo,fecha,telefono,celular,direc,dept,puesto,email); 
         
-               // http://localhost:8080/tesis3/rest/insertarUsuario?cod=4&cedula=22916315&nombre=Luisana Delgado&sexo=1&titulo=Lcda.&fecha=27/07/2018&hora=11:00:00&tipo=AM&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=caracas    
-    }
+               //http://localhost:8080/tesis3/rest/insertarUsuario?cod=8&cedula=2566332&nombre=Luisana&sexo=1&fecha=7/27/2018&celular=04142665559&telefono=02122560160&email=luisana@gmail.com&puesto=Jefa&dept=2&direc=caracas    
+               }
     
     @GET
     @Path("/insertarDepartamento")
@@ -201,10 +201,10 @@ public class rest {
     @GET
     @Path("/listadoEmpleados")
     @Produces("application/json")
-    public String listadoEmp () throws ClassNotFoundException, SQLException{
+    public String listadoEmp (@QueryParam("iddep") int iddep) throws ClassNotFoundException, SQLException{
         
-        return reporte.listadoEmpleados();
-        //http://localhost:8080/tesis3/rest/listadoT
+        return reporte.listadoEmpleados(iddep);
+        //http://localhost:8080/tesis3/rest/listadoT?iddep=2
     
     }
     

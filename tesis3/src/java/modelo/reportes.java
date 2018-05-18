@@ -324,11 +324,11 @@ public class reportes {
         
        }
        
-       public String listadoEmpleados() throws ClassNotFoundException, SQLException{
+       public String listadoEmpleados(int iddep) throws ClassNotFoundException, SQLException{
            
            
            try{
-           String query="SELECT * FROM User, Department WHERE Department.IdDepartment=User.IdDepartment ;";
+           String query="SELECT * FROM User, Department WHERE Department.IdDepartment=User.IdDepartment and IdDepartment="+iddep+" ;";
            ResultSet da = sql.getValues(query);
             
             while (da.next()) {
