@@ -199,7 +199,7 @@ public class rest {
     }
     
     @GET
-    @Path("/listadoT")
+    @Path("/listadoEmpleados")
     @Produces("application/json")
     public String listadoEmp () throws ClassNotFoundException, SQLException{
         
