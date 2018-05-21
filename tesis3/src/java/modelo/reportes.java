@@ -216,7 +216,7 @@ public class reportes {
       public String buscarDepartamento () throws ClassNotFoundException, SQLException{
         
         try {
-          String query="Select * FROM Department ;";
+          String query="Select * FROM Department WHERE IdDepartment > 1 ;";
         
           ResultSet da = sql.getValues(query);
           
@@ -283,6 +283,32 @@ public class reportes {
           String query="SELECT * FROM Record, Department, User, Device WHERE Department.IdDepartment = User.IdDepartment "
                    + "and User.IdUser = Record.IdUser and Record.MachineNumber=Device.IdDevice "
                    + "and MachineNumber="+zona+"";
+          
+          ResultSet da = sql.getValues(query);
+          
+          while(da.next()){
+              
+             a.add(  new reporte1 (da.getString("IdUser"),da.getString("Name"), da.getString("Description"), da.getString("Position"), da.getString("RecordType"), da.getString("RecordTime")));
+              
+          }
+          
+            return gson.toJson(a);
+          } catch (SQLException ex) {
+           
+        }
+        return null;
+          
+        
+        
+        }
+      
+       public String reporteZona1 (int zona) throws ClassNotFoundException, SQLException{
+          
+          
+          try{
+          String query="SELECT * FROM Record, Department, User, Device WHERE Department.IdDepartment = User.IdDepartment "
+                   + "and User.IdUser = Record.IdUser and Record.MachineNumber=Device.IdDevice ";
+                  
           
           ResultSet da = sql.getValues(query);
           

@@ -84,8 +84,15 @@ public class rest {
             
     {   
         
-        return reporte.reporteZona(zona);
+        if(zona==0){
+            
+            return reporte.reporteZona1(zona);
         
+        }
+        
+        else{
+        return reporte.reporteZona(zona);
+        }
         
        // http://localhost:8080/tesis3/rest/reporteZonas?zona=2
         
