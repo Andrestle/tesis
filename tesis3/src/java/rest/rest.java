@@ -248,5 +248,39 @@ public class rest {
         //http://localhost:8080/tesis3/rest/ultimosCinco
     
     }
+    
+     @GET
+    @Path("/figuraEntradas")
+    @Produces("application/json")
+    public String figuraEntradasUsu () throws ClassNotFoundException, SQLException{
+    
+        return reporte.figuraEntradasTarde();
+        
+        //http://localhost:8080/tesis3/rest/username=andrestle
+    
+    }
+    
+    @GET
+    @Path("/figuraZona")
+    @Produces("application/json")
+    public String figuraZonaUsu () throws ClassNotFoundException, SQLException{
+    
+        return reporte.figuraZona();
+        
+        //http://localhost:8080/tesis3/rest/username=andrestle
+    
+    }
+    
+    @GET
+    @Path("/figuraSalidas")
+    @Produces("application/json")
+    public String figuraSalidasUsu () throws ClassNotFoundException, SQLException{
+    
+        return reporte.figuraSalidasTemprano();
+        
+        //http://localhost:8080/tesis3/rest/username=andrestle
+    
+    }
+    
   
 }

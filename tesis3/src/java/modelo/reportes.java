@@ -2,6 +2,7 @@ package modelo;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import utility.datos2;
 import utility.datos3;
 import utility.datos4;
 import utility.datos5;
+import utility.datos6;
 import utility.reporte1;
 import utility.sql;
 
@@ -40,6 +42,7 @@ public class reportes {
     ArrayList<datos3> e = new ArrayList<>();
     ArrayList<datos4> f = new ArrayList<>();
     ArrayList<datos5> g = new ArrayList<>();
+    ArrayList<datos6> h = new ArrayList<>();
     
     public String reporteUsuarios (int iddep, int marca, String fecha, String hora, String tipo,
                             String fecha2, String hora2, String tipo2) throws ClassNotFoundException
@@ -433,9 +436,135 @@ public class reportes {
            
        }
        
+       public String login(String username, String password) throws ClassNotFoundException, SQLException {
+           
+        try{   
+           String query="SELECT * FROM Tabla1 WHERE Username='"+username+"' and Password='"+password+"';";
+           ResultSet da = sql.getValues(query);
+            
+            while (da.next()) {
+                
+                h.add(  new datos6 (da.getString("Username"), da.getString("Password")));
+                
+            }
+              
+            String obj = gson.toJson(h);
+           
+           if(obj.length()==0){
+               
+               return "Fallaste";
+           
+           }
+           
+           else{
+               
+               return "Exitoso";
+           
+           }
+           
+           
+         
+           }
+        catch (SQLException ex) {
+           
+        
+           
+           return null;
+       
+       
+       }
+       }
+       
+       public String figuraZona () throws ClassNotFoundException, SQLException{
+        
+           int cont = 0;
+           
+           try{ 
+           String query="SELECT count(IdUser) as contador From Record WHERE MachineNumber = 2 ;";
+           
+           ResultSet da = sql.getValues(query);
+           
+           
+          
+        
+           
+           while (da.next()) {
+                
+                cont = da.getInt("contador");
+                
+                
+                
+            }
+              
+           return gson.toJson(cont);
+           
+        }catch (SQLException ex) {
+           
+        }
+        return null;
+        
+           
+           
+         
+       
+       
+       }
+       
  
-      
+       public String figuraEntradasTarde () throws ClassNotFoundException{
+        
+           int cont = 0;
+           
+           try{ 
+           String query="SELECT count(IdUser) as contador FROM Record WHERE cast(RecordTime as time) > '08:30:00' and cast(RecordTime as time) < '12:00:00'  ;";
+           
+           ResultSet da = sql.getValues(query);
+           
+           while (da.next()) {
+                
+                 cont = da.getInt("contador");
+                
+            }
+              
+           return gson.toJson(cont);
+        }catch (SQLException ex) {
+           
+        }
+        return null;
+           
+           
+         
+       
+       
+       }
+       
+       public String figuraSalidasTemprano () throws ClassNotFoundException{
+        
+           int cont = 0;
+           
+           try{ 
+           String query="SELECT count(IdUser) as contador FROM Record WHERE cast(RecordTime as time) > '13:30:00' and cast(RecordTime as time) < '17:30:00'  ;";
+           
+           ResultSet da = sql.getValues(query);
+           
+           while (da.next()) {
+                
+                 cont = da.getInt("contador");
+                
+            }
+              
+           return gson.toJson(cont);
+        }catch (SQLException ex) {
+           
+        }
+        return null;
+           
+           
+         
+       
+       
+       }
    
-}
 
+}
  
